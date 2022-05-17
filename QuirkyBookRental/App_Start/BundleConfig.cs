@@ -20,7 +20,7 @@ namespace QuirkyBookRental
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bookRentalJs").Include(
-                      "~/Scripts/bootstrap.bundle.min.js",
+                      "~/Scripts/bootstrap.js",
                       "~/Scripts/AdminMenu.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
