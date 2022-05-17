@@ -1,4 +1,4 @@
-namespace QuirkyBookRental.Migrations
+﻿namespace QuirkyBookRental.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
