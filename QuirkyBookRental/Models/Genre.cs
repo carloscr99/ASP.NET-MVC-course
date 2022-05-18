@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,7 @@ namespace QuirkyBookRental.Models
         [Required]
         public int id { get; set; }
         [Required]
-        public int Name { get; set; }
+        [DisplayName("Genre name")] //That the title of the table column
+        public string Name { get; set; }
     }
 }

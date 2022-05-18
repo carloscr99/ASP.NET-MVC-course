@@ -1,0 +1,36 @@
+﻿@model QuirkyBookRental.Models.Genre
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h3>Are you sure to delete this genre?</h3>
+
+        <hr />
+
+        <fieldset disabled>
+            <div class="row" style="padding-bottom:5px; padding-top:5px">
+                <div class="col-md-2">
+                    @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-10">
+
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-controll" })
+
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div>
+        @Html.Partial("_BackToListButtonPartial")
+        <input type="submit" value="Delete" class="btn btn-sm btn-danger" />
+    </div>
+
+}
