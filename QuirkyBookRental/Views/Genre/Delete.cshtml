@@ -14,20 +14,24 @@
         <h3>Are you sure to delete this genre?</h3>
 
         <hr />
+        <div class="form-border">
+            <fieldset disabled>
+                <div class="row" style="padding-bottom:5px; padding-top:5px">
+                    <div class="col-md-2">
+                        @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-10">
 
-        <fieldset disabled>
-            <div class="row" style="padding-bottom:5px; padding-top:5px">
-                <div class="col-md-2">
-                    @Html.LabelFor(m => m.Name, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-controll" })
+
+                    </div>
                 </div>
-                <div class="col-md-10">
+            </fieldset>
+        </div>
 
-                    @Html.TextBoxFor(m => m.Name, new { @class = "form-controll" })
-
-                </div>
-            </div>
-        </fieldset>
     </div>
+    <br />
+
     <div>
         @Html.Partial("_BackToListButtonPartial")
         <input type="submit" value="Delete" class="btn btn-sm btn-danger" />
