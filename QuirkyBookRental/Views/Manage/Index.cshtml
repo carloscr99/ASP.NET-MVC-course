@@ -3,85 +3,96 @@
     ViewBag.Title = "Gestionar";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h3>Profile Details</h3>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
+
 <div>
-    <h4>Cambiar la configuración de la cuenta</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>Contraseña:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Cambiar la contraseña", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Crear", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>Inicios de sesión externos:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Administrar", "ManageLogins") ]
-        </dd>
-        @*
-            Los números de teléfono se pueden usar como una segunda fase de comprobación en un sistema de autenticación en dos fases.
-             
-             Consulte <a href="https://go.microsoft.com/fwlink/?LinkId=403804">este artículo</a>
-                para obtener detalles sobre cómo configurar esta aplicación ASP.NET para que sea compatible con la autenticación en dos fases mediante SMS.
-             
-             Quite la marca de comentario de los bloques siguientes después de configurar la autenticación en dos fases.
-        *@
-        @*  
-            <dt>Número de teléfono:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+
+
+    <div class="form-horizontal">
+        <div class="form-border">
+            <div class="form-group">
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    @if (Model.HasPassword)
                     {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Quitar" class="btn-link" />]</text>
+                        <a type="button" class="btn btn-sm btn-primary" href="@Url.Action("ChangePassword")">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span>Change Password</span>
+                        </a>
                     }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
-        <dt>Autenticación de dos factores:</dt>
-        <dd>
-            <p>
-                No hay ningún proveedor de autenticación en dos fases configurado. Consulte <a href="https://go.microsoft.com/fwlink/?LinkId=403804">este artículo</a>
-                para obtener detalles sobre cómo configurar esta aplicación ASP.NET para que sea compatible con la autenticación en dos fases.
-            </p>
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    else
                     {
-                        @Html.AntiForgeryToken()
-                        <text>Habilitado
-                        <input type="submit" value="Deshabilitar" class="btn btn-link" />
-                        </text>
+                        <a type="button" class="btn btn-sm btn-primary" href="@Url.Action("setPassword")">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span>Create Password</span>
+                        </a>
                     }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Deshabilitado
-                        <input type="submit" value="Habilitar" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
-    </dl>
+
+                    &nbsp;
+                    &nbsp;
+                    <a type="button" class="btn btn-sm btn-primary" href="@Url.Action("ManageLogins")">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span>Manage External Logins</span>
+                    </a>
+
+                </div>
+            </div>
+
+
+            <fieldset disabled>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(m => m.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(m => m.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(m => m.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.BirthDate, "{0:MM/dd/yyyy}", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MembershipTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.MembershipTypeId, new SelectList(Model.membershipTypes, "Id", "Name"), new { @class = "form-control" })
+                    </div>
+                </div>
+
+
+            </fieldset>
+            <br />
+            <div class="col-md-offset-2">
+                @Html.ActionLink("Edit", "Edit", "Manage", null, new { @class = "btn btn-sm btn-success" })
+            </div>
+
+
+
+
+        </div>
+
+
+</div>
+
+
 </div>

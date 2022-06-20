@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using QuirkyBookRental.Extensions;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace QuirkyBookRental.Models
@@ -79,6 +81,33 @@ namespace QuirkyBookRental.Models
         [Display(Name = "Confirmar contraseña")]
         [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
+
+        public bool Disable { get; set; }
+
+        public ICollection<MembershipType> membershipTypes { get; set; }
+
+        [Required]
+        public int MembershipTypeId { get; set; }
+
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Phone")]
+        public string Phone { get; set; }
+
+        [Required]
+        [DateRange("01/01/1900")]
+        [Display(Name = "Birth Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0: MM dd yyyy}")]
+        public DateTime BirthDate { get; set; }
+
     }
 
     public class ResetPasswordViewModel

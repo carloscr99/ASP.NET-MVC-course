@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using QuirkyBookRental.Models;
+using QuirkyBookRental.Utility;
 
 namespace QuirkyBookRental.Controllers
 {
@@ -22,7 +24,7 @@ namespace QuirkyBookRental.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +36,9 @@ namespace QuirkyBookRental.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -120,7 +122,7 @@ namespace QuirkyBookRental.Controllers
             // Si un usuario introduce códigos incorrectos durante un intervalo especificado de tiempo, la cuenta del usuario 
             // se bloqueará durante un período de tiempo especificado. 
             // Puede configurar el bloqueo de la cuenta en IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -139,7 +141,17 @@ namespace QuirkyBookRental.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            using (var db = ApplicationDbContext.Create())
+            {
+                RegisterViewModel newUser = new RegisterViewModel
+                {
+                    membershipTypes = db.MembershipTypes.ToList(),
+                    BirthDate = DateTime.Now
+
+                };
+                return View(newUser);
+            }
+
         }
 
         //
@@ -151,12 +163,45 @@ namespace QuirkyBookRental.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    BirthDate = model.BirthDate,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Phone = model.Phone,
+                    MembershipTypeId = model.MembershipTypeId,
+                    Disable = false
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
+                    using(var db = ApplicationDbContext.Create())
+                    {
+                        model.membershipTypes = db.MembershipTypes.ToList();
+
+                        var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                        var roleManager = new RoleManager<IdentityRole>(roleStore);
+                        var membership = model.membershipTypes.SingleOrDefault(m => m.Id == model.MembershipTypeId).Name.ToString();
+
+                        if (membership.ToLower().Contains("admin"))
+                        {
+
+                            await roleManager.CreateAsync(new IdentityRole(SD.AdminUserRole));
+                            await UserManager.AddToRoleAsync(user.Id, SD.AdminUserRole);
+                        }
+                        else
+                        {
+                            await roleManager.CreateAsync(new IdentityRole(SD.EndUserRole));
+                            await UserManager.AddToRoleAsync(user.Id, SD.EndUserRole);
+                        }
+
+
+                    }
+
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
                     // Enviar correo electrónico con este vínculo
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -166,6 +211,14 @@ namespace QuirkyBookRental.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
+            }
+
+            using (var db = ApplicationDbContext.Create())
+
+            {
+
+                model.membershipTypes = db.MembershipTypes.ToList();
+
             }
 
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
