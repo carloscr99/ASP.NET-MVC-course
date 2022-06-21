@@ -112,7 +112,7 @@ namespace QuirkyBookRental.Controllers
 
             db.SaveChanges();
 
-            return RedirectToAction("Index", "Users");
+            return RedirectToAction("Index", "User");
 
 
         }
