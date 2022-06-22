@@ -195,6 +195,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\BookDetailController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -237,9 +238,18 @@
     <Compile Include="Migrations\202206091530185_otravez.designer.cs">
       <DependentUpon>202206091530185_otravez.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206221330069_addBookRentalModel.cs" />
+    <Compile Include="Migrations\202206221330069_addBookRentalModel.designer.cs">
+      <DependentUpon>202206221330069_addBookRentalModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206221334419_AddRentalDurationToBookRentModel.cs" />
+    <Compile Include="Migrations\202206221334419_AddRentalDurationToBookRentModel.designer.cs">
+      <DependentUpon>202206221334419_AddRentalDurationToBookRentModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\BookRent.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IndividualButtonPartial.cs" />
@@ -249,6 +259,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\SD.cs" />
+    <Compile Include="ViewModel\BookRentalViewModel.cs" />
     <Compile Include="ViewModel\BookViewModel.cs" />
     <Compile Include="ViewModel\ThumbnailBoxViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
@@ -349,6 +360,7 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\BookDetail\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -382,6 +394,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206091530185_otravez.resx">
       <DependentUpon>202206091530185_otravez.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206221330069_addBookRentalModel.resx">
+      <DependentUpon>202206221330069_addBookRentalModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206221334419_AddRentalDurationToBookRentModel.resx">
+      <DependentUpon>202206221334419_AddRentalDurationToBookRentModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
