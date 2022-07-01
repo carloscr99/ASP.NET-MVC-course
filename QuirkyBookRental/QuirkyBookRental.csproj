@@ -277,6 +277,7 @@
     <Content Include="Content\images\heartstopper.jpg" />
     <Content Include="Content\images\quijote.jpg" />
     <Content Include="Content\thumbnail.css" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
