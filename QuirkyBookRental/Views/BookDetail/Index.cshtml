@@ -12,12 +12,12 @@
 
     <div class="row">
         @* Book Image *@
-        <div class="col-sm-3 col-xs-4">
+        <div class="col-sm-3 col-xs-4 image-book">
             <img src="@Model.ImageUrl" class="thumbnail-img" style="width:100%; height: auto;padding:10px" />
         </div>
         @* Book Title amd description *@
-        <div class="col-sm-6 col-xs-8">
-            <div>
+        <div class="col-sm-6 col-xs-8 content-book-main">
+            <div class="content-book-title-author">
                 <h2><b>@Model.Title</b></h2>
                 <h5>by @Model.Author</h5>
             </div>
@@ -27,7 +27,7 @@
             </div>
         </div>
         @* Book Price and details *@
-    <div class="col-sm-3 col-xs-12">
+    <div class="col-sm-3 col-xs-12 content-book-product-details">
 
         <div>
             @{
@@ -122,7 +122,7 @@
 
         </div>
 
-        <h4>Product Details</h4>
+        <h4 class="product-details-heading">Product Details</h4>
 
         <dl>
             <dt>
