@@ -27,6 +27,7 @@ namespace QuirkyBookRental
                       "~/Content/bootstrap.css",
                       "~/Content/thumbnail.css",
                       "~/Content/BookDetail.css",
+                      "~/Content/typeahead.css",
                       "~/Content/site.css"));
         }
     }

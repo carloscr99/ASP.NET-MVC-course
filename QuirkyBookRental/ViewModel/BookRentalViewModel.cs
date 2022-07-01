@@ -92,6 +92,7 @@ namespace QuirkyBookRental.ViewModel
         //User Details
 
         public string UserId { get; set; }
+        public string Email { get; set; }
 
         [DisplayName("First Name")]
         public string FirstName{ get; set; }
