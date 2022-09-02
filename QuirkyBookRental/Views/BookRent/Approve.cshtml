@@ -1,20 +1,21 @@
 ﻿@model QuirkyBookRental.ViewModel.BookRentalViewModel
 @{
-    ViewBag.Title = "Decline";
+    ViewBag.Title = "Approve";
 }
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(Model.actionName, "BookRent"))
 {
 
     @Html.AntiForgeryToken()
 
-    <fieldset disabled>
 
-        <h3>BookRent Decline</h3>
 
-        <div class="row" style="border:1px solid #bbb9b9; border-radius:5px;">
-            <div class="col-sm-10">
+    <h3>BookRent @Model.actionName</h3>
+
+    <div class="row" style="border:1px solid #bbb9b9; border-radius:5px;">
+        <div class="col-sm-10">
+            <fieldset disabled>
                 <div class="row" style="padding-bottom:5px; padding-top:25px;">
                     <div class="col-sm-2">
                         @Html.LabelFor(m => m.ISBN, htmlAttributes: new { @class = "control-label" })
@@ -55,6 +56,9 @@
                         @Html.TextBoxFor(m => m.ScheduledEndDate, "{0:MM/dd/yyyy}", new { @class = "form-control", enabled = "false" })
                     </div>
                 </div>
+            </fieldset>
+            @if (Model.actionName.Equals("Return"))
+            {
                 <div class="row" style="padding-bottom:5px; padding-top:25px;">
                     <div class="col-sm-2">
                         @Html.LabelFor(m => m.AdditionalCharge, htmlAttributes: new { @class = "control-label" })
@@ -63,6 +67,8 @@
                         @Html.TextBoxFor(m => m.AdditionalCharge, new { @class = "form-control", enabled = "false" })
                     </div>
                 </div>
+            }
+            <fieldset disabled>
                 <div class="row" style="padding-bottom:5px; padding-top:25px;">
                     <div class="col-sm-2">
                         @Html.LabelFor(m => m.RentalDuration, htmlAttributes: new { @class = "control-label" })
@@ -95,22 +101,21 @@
                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control", enabled = "false" })
                     </div>
                 </div>
-
-            </div>
-            <div class="col-sm-2">
-                <div class="image-book">
-                    <img class="thumbnail-img" src="@Model.ImageUrl" alt="" style="width:100%; height: auto" />
-                </div>
+            </fieldset>
+        </div>
+        <div class="col-sm-2">
+            <div class="image-book">
+                <img class="thumbnail-img" src="@Model.ImageUrl" alt="" style="width:100%; height: auto" />
             </div>
         </div>
+    </div>
 
-    </fieldset>
 
     <br />
     <p>
         @Html.Partial("_BackToListButtonPartial")
 
-        <input type="submit" value="Decline" id="btnSubmit" class="btn btn-sm btn-danger" />
+        <input type="submit" value="@Model.actionName" id="btnSubmit" class="btn btn-sm btn-sucess" />
     </p>
 
 
