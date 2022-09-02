@@ -1,4 +1,5 @@
 ﻿using QuirkyBookRental.Models;
+using QuirkyBookRental.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace QuirkyBookRental.Controllers
 {
+    [Authorize(Roles = SD.AdminUserRole)]
     public class GenreController : Controller
     {
 

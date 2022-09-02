@@ -7,10 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QuirkyBookRental.Models;
+using QuirkyBookRental.Utility;
 using QuirkyBookRental.ViewModel;
 
 namespace QuirkyBookRental.Controllers
 {
+    [Authorize(Roles = SD.AdminUserRole)]
     public class BookController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

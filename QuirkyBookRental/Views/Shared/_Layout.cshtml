@@ -1,7 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using QuirkyBookRental.Utility
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
@@ -25,9 +26,11 @@
                     <li>
                         @Html.ActionLink("Rental Status", "Index", "BookRent")
                     </li>
-                   @* We include our partial menu *@
-                    @Html.Partial("_AdminMenuPartial")
-
+                    @if (User.IsInRole(SD.AdminUserRole))
+                    {
+                        @* We include our partial menu *@
+                        @Html.Partial("_AdminMenuPartial")
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

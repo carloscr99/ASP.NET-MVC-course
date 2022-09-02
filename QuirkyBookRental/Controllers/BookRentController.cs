@@ -11,6 +11,7 @@ using PagedList;
 
 namespace QuirkyBookRental.Controllers
 {
+    [Authorize]
     public class BookRentController : Controller
     {
 
